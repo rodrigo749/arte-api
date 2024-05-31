@@ -1,8 +1,6 @@
-require('dotenv').config();
-const MONGODB_URI = process.env.MONGODB_URI;
 
 module.exports = {
-  url: MONGODB_URI,
+  url: "mongodb+srv://admin:rodrigoneves@cluster0.utjqcgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
   PORT: 27017,
   DB: "tutorial"
 }
