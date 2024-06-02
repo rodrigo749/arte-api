@@ -27,7 +27,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       }
 
       if (user) {
-        res.status(400).send({ message: "Fracassado! Email já está em uso!" });
+        res.status(400).send({ message: "Error! Email já está em uso!" });
         return;
       }
 
@@ -41,7 +41,7 @@ checkRolesExisted = (req, res, next) => {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
         res.status(400).send({
-          message: `Error essa função${req.body.roles[i]} nçao existe!`
+          message: `Error essa função${req.body.roles[i]} não existe!`
         });
         return;
       }
