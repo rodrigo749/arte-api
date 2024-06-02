@@ -2,21 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 
+const dbConfig = require("./app/config/db.config");
+
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-
+app.use(cors());
 /* for Angular Client (withCredentials) */
- app.use(
-   cors({
-     credentials: false,
-     origin: ["http:localhost:8081"],
-   })
- );
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: ["http://localhost:8081"],
+//   })
+// );
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -34,7 +31,6 @@ app.use(
 
 const db = require("./app/models");
 const Role = db.role;
-
 const DB_URI = "mongodb+srv://admin:rodrigoneves@cluster0.utjqcgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 db.mongoose
@@ -43,23 +39,23 @@ db.mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log("Connected to the database!");
+    console.log("Successfully connect to MongoDB.");
     initial();
   })
   .catch(err => {
-    console.log("Cannot connect to the database!", err);
+    console.error("Connection error", err);
     process.exit();
   });
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Arte application." });
+  res.json({ message: "Welcome to arte application." });
 });
 
-require("./app/routes/turorial.routes")(app);
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/turorial.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

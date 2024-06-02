@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "arte-scret-key"
+  secret: "arte-secret-key"
 };
