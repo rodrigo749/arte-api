@@ -74,7 +74,7 @@ exports.signin = (req, res) => {
       }
 
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "Usuário não encontrado." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -83,7 +83,7 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).send({ message: "Invalid Password!" });
+        return res.status(401).send({ message: "Senha Inválida!" });
       }
 
       const token = jwt.sign({ id: user.id },
@@ -114,7 +114,7 @@ exports.signin = (req, res) => {
 exports.signout = async (req, res) => {
   try {
     req.session = null;
-    return res.status(200).send({ message: "You've been signed out!" });
+    return res.status(200).send({ message: "Você acbou de sair!" });
   } catch (err) {
     this.next(err);
   }
