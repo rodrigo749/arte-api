@@ -1,24 +1,26 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Arte = db.artes;
 
-// Create and Save a new Tutorial
+// Create and Save a new Arte
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.nome) {
     res.status(400).send({ message: "Conteudo não pode ser vazio!" });
     return;
   }
 
-  // Create a Tutorial
-  const tutorial = new Tutorial({
-    title: req.body.title,
-    description: req.body.description,
+  // Create a Arte
+  const arte = new Arte({
+    nome: req.body.nome,
+    descricao: req.body.descricao,
+    preco: req.body.preco,
+    image: req.body.image,
     published: req.body.published ? req.body.published : false
   });
 
-  // Save Tutorial in the database
-  tutorial
-    .save(tutorial)
+  // Save Arte in the database
+  arte
+    .save(arte)
     .then(data => {
       res.send(data);
     })
@@ -32,10 +34,10 @@ exports.create = (req, res) => {
 
 // Retrieve all arte from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+  const nome = req.query.nome;
+  var condition = nome ? { nome: { $regex: new RegExp(nome), $options: "i" } } : {};
 
-  Tutorial.find(condition)
+  Arte.find(condition)
     .then(data => {
       res.send(data);
     })
@@ -47,11 +49,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Tutorial with an id
+// Find a single Arte with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findById(id)
+  Arte.findById(id)
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Nenhum arte encontrada com o id " + id });
@@ -60,84 +62,84 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res
         .status(500)
-        .send({ message: "Error para pegar o tutorial=" + id });
+        .send({ message: "Error para pegar a arte=" + id });
     });
 };
 
-// Update a Tutorial by the id in the request
+// Update a Arte by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
-      message: "Data to update can not be empty!"
+      message: "Dado para atualizar não pode ser em branco!"
     });
   }
 
   const id = req.params.id;
 
-  Tutorial.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Arte.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot update Arte with id=${id}. Maybe Arte was not found!`
         });
-      } else res.send({ message: "Tutorial was updated successfully." });
+      } else res.send({ message: "Arte was updated successfully." });
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Arte with id=" + id
       });
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Arte with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByIdAndRemove(id, { useFindAndModify: false })
+  Arte.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Arte with id=${id}. Maybe Arte was not found!`
         });
       } else {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Arte was deleted successfully!"
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
+        message: "Could not delete Arte with id=" + id
       });
     });
 };
 
-// Delete all Tutorials from the database.
+// Delete all Arte from the database.
 exports.deleteAll = (req, res) => {
-  Tutorial.deleteMany({})
+  Arte.deleteMany({})
     .then(data => {
       res.send({
-        message: `${data.deletedCount} Tutorials were deleted successfully!`
+        message: `${data.deletedCount} Arte were deleted successfully!`
       });
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all tutorials."
+          err.message || "Some error occurred while removing all Arte."
       });
     });
 };
 
-// Find all published Tutorials
+// Find all published Arte
 exports.findAllPublished = (req, res) => {
-  Tutorial.find({ published: true })
+  Arte.find({ published: true })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving arte."
       });
     });
 };
