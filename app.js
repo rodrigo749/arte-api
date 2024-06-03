@@ -6,14 +6,14 @@ const dbConfig = require("./app/config/db.config");
 
 const app = express();
 
-//app.use(cors());
+app.use(cors());
 /* for Angular Client (withCredentials) */
- app.use(
-   cors({
-     credentials: true,
-     origin: ["https://arte-api.onrender.com"],
-   })
- );
+//  app.use(
+//    cors({
+//      credentials: true,
+//      origin: ["https://arte-api.onrender.com"],
+//    })
+//  );
 
 // parse requests of content-type - application/json
 app.use(express.json());

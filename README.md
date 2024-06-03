@@ -1,18 +1,15 @@
-# Node.js Express & MongoDB: CRUD Rest APIs
+# README
 
-For more detail, please visit:
-> [Node.js, Express](https://expressjs.com/pt-br/)
-> [MongoDB ](https://www.mongodb.com/docs/)
+This is the [Express](https://expressjs.com) [Hello world](https://expressjs.com/en/starter/hello-world.html) example on [Render](https://render.com).
 
+The app in this repo is deployed at [https://express.onrender.com](https://express.onrender.com).
 
-Para rodar localmente o projeto digite o comando:
-Primeiro o comando npm install e depois node server.js
-## Project setup
-```
-npm install
-```
+## Deployment
 
-### Run
-```
-node server.js
-```
+See https://render.com/docs/deploy-node-express-app or follow the steps below:
+
+Create a new web service with the following values:
+  * Build Command: `yarn`
+  * Start Command: `node app.js`
+
+That's it! Your web service will be live on your Render URL as soon as the build finishes.
