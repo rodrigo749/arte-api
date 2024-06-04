@@ -11,7 +11,8 @@ exports.create = (req, res) => {
 
   // Create a Categoria
   const categoria = new Categoria({
-    nome: req.body.nome
+    nome: req.body.nome,
+    ativa: req.body.ativa ? req.body.ativa : false
   });
 
   // Save Categoria in the database
@@ -76,13 +77,13 @@ exports.update = (req, res) => {
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot update Categoria with id=${id}. Maybe Categoria was not found!`
         });
-      } else res.send({ message: "Tutorial was updated successfully." });
+      } else res.send({ message: "Categoria was updated successfully." });
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Categoria with id=" + id
       });
     });
 };
